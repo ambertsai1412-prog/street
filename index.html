@@ -99,10 +99,12 @@
             overflow: hidden;
             box-shadow: var(--card-shadow);
             transition: 0.3s ease;
+            cursor: pointer; /* 讓滑鼠變成手型提示可點擊 */
         }
 
         .building-card:hover {
             transform: scale(1.02);
+            box-shadow: 0 15px 35px rgba(214, 143, 102, 0.15);
         }
 
         .card-thumb {
@@ -146,7 +148,6 @@
 
         /* --- 5. RWD 手機版優化 --- */
         @media (max-width: 768px) {
-            /* 解決手機版頂部圖片被裁切的問題 */
             .hero-container { 
                 height: auto; 
                 min-height: 0; 
@@ -161,7 +162,6 @@
             .nav-item { padding: 20px 5px; }
             .nav-item span { font-size: 28px; }
 
-            /* 建築卡片改為橫向滑動或單欄列出 */
             .building-grid { 
                 display: flex; 
                 overflow-x: auto; 
@@ -203,13 +203,13 @@
     </div>
     
     <div class="building-grid">
-        <div class="building-card">
+        <div class="building-card" onclick="window.location.href='page01.html';">
             <div class="card-thumb">
                 <img src="2.jpg" alt="陳林氏寶宅">
             </div>
             <div class="card-content">
                 <h3>陳林氏寶宅</h3>
-                <p>中西合璧代表，精美洗石子裝飾訴說家族榮光。</p>
+                <p>採用傳統閩南式的「二進左右護龍」格局。 外圍有高聳的紅磚牆，內部則有寬敞的內埕 （前院）</p>
             </div>
         </div>
 
