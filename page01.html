@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>陳林氏寶宅 - 拾陸建築導覽</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sunset-milk: #D68F66;
+            --muted-green: #7BA08E;
+            --faded-cherry: #B55D5D;
+            --bg-paper: #F8F7F2;
+            --text-dark: #2C2928;
+            --white-glass: rgba(255, 255, 255, 0.8);
+            --photo-bg: #eae8e1; 
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-paper);
+            font-family: 'Noto Serif TC', serif;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* --- 返回按鈕 --- */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--white-glass);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--sunset-milk);
+            color: white;
+        }
+
+        /* --- 圖片容器 --- */
+        .detail-hero {
+            width: 100%;
+            height: auto; 
+            overflow: hidden;
+            border-bottom: 8px solid var(--sunset-milk);
+            background-color: var(--photo-bg);
+            min-height: 30vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .detail-hero img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            object-fit: contain; 
+            object-position: center center; 
+            display: block;
+        }
+
+        /* --- 內容容器 --- */
+        .content-wrap {
+            max-width: 800px;
+            margin: 20px auto 60px;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .main-card {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+        }
+
+        .category-tag {
+            color: var(--muted-green);
+            font-weight: bold;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0 0 20px;
+            color: var(--text-dark);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        .info-section { margin-top: 40px; }
+        .info-section h2 {
+            color: var(--sunset-milk);
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .info-section h2::before {
+            content: "";
+            width: 6px;
+            height: 24px;
+            background: var(--sunset-milk);
+            display: inline-block;
+            border-radius: 3px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .feature-item {
+            background: #fafaf9;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid var(--muted-green);
+        }
+
+        .feature-item b {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--muted-green);
+            font-size: 1.1rem;
+        }
+
+        .history-box {
+            background: #fdfaf3;
+            border: 1px solid #eee;
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 30px;
+        }
+
+        .history-box h3 {
+            margin-top: 0;
+            color: var(--faded-cherry);
+            font-size: 1.2rem;
+        }
+
+        .bottom-nav {
+            text-align: center;
+            margin-top: 50px;
+            padding: 40px;
+            border-top: 1px dashed #ccc;
+        }
+
+        /* --- 手機版優化 --- */
+        @media (max-width: 768px) {
+            .detail-hero { min-height: 25vh; }
+            .content-wrap { margin-top: 10px; }
+            .main-card { padding: 25px; border-radius: 20px; }
+            h1 { font-size: 1.8rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">
+        <span>←</span> 返回首頁
+    </a>
+
+    <div class="detail-hero">
+        <img src="2.jpg" alt="陳林氏寶宅全景">
+    </div>
+
+    <div class="content-wrap">
+        <article class="main-card">
+            <span class="category-tag">興建於 1920年代（日治時期）</span>
+            <h1>陳林氏寶宅</h1>
+            
+            <p class="intro-text">
+                位於斗六核心地帶的陳林氏寶宅，是展現家族實力與個人意志的指標性建築。
+                這座宅邸的名字結合了夫姓（陳）與本姓（林），在早期台灣社會中，這座宏偉的私人宅邸不僅是居所，更是女性地位與家族財富的象徵。
+            </p>
+
+            <div class="info-section">
+                <h2>建築藝術細節</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <b>傳統閩南格局</b>
+                        採用「二進左右護龍」配置，外圍環繞高聳紅磚牆，內部保有寬敞的內埕（前院），結構嚴謹。
+                    </div>
+                    <div class="feature-item">
+                        <b>洗石子工法</b>
+                        運用當時最高級的建築技術，外牆佈滿精緻的浮雕與幾何圖案，色彩穩重且質感細膩。
+                    </div>
+                    <div class="feature-item">
+                        <b>華麗西洋裝飾</b>
+                        山牆（屋頂三角形處）點綴華麗的勳章飾與花草泥塑，展現濃厚且優雅的巴洛克風情。
+                    </div>
+                    <div class="feature-item">
+                        <b>考究建材</b>
+                        大量採用優質紅磚、高級木材與彩繪磁磚，即便歷經百年滄桑，依然能感受到當年的氣派與莊重。
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-box">
+                <h3>主人翁背景：傳奇女性陳林氏寶</h3>
+                <p>
+                    <b>陳林氏寶（1893－1972）</b>，在當時女性多依附夫家的社會風氣下，她是斗六地區知名的女企業家與地主。
+                </p>
+                <p>
+                    其丈夫為曾任斗六街協議會員的<b>陳順應</b>。陳氏家族在斗六地區經營糖業與土地開發，財力極其雄厚。這座宅邸的落成，象徵了她個人堅韌的意志力。
+                </p>
+            </div>
+        </article>
+
+        <footer class="bottom-nav">
+            <p style="color: #999;">© 拾陸 - 歷史建築導覽設計</p>
+        </footer>
+    </div>
+
+</body>
+</html>
