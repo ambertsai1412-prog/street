@@ -13,7 +13,7 @@
             --border-light: #D1D1D1;
         }
 
-        /* --- 1. Logo 載入動畫 (只在第一次進入時顯示) --- */
+        /* --- 1. Logo 載入動畫層 --- */
         #loader-wrapper {
             position: fixed;
             top: 0; left: 0;
@@ -26,23 +26,20 @@
             z-index: 9999;
             transition: opacity 0.8s ease, visibility 0.8s;
         }
-
         .loader-logo-container {
             text-align: center;
             opacity: 0;
             transform: translateY(20px);
             animation: logoFadeIn 1.2s ease-out forwards;
         }
-
         .loader-logo-container img { width: 100px; margin-bottom: 25px; border-radius: 10px; }
         .loader-slogan { font-family: 'Noto Serif TC', serif; letter-spacing: 0.2rem; font-weight: 500; }
-
         @keyframes logoFadeIn { to { opacity: 1; transform: translateY(0); } }
         .loader-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        /* --- 2. 網頁主體與全屏封面輪播 --- */
         body { margin: 0; background-color: var(--bg-paper); font-family: 'Noto Serif TC', serif; color: var(--text-dark); overflow-x: hidden; }
 
+        /* --- 2. 封面全屏輪播 (響應式) --- */
         .hero-container {
             width: 100%;
             height: 100vh;
@@ -50,23 +47,21 @@
             overflow: hidden;
             background-color: #000;
         }
-
         .hero-slideshow {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
             z-index: 1;
         }
-
         .hero-slideshow-img {
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            object-fit: cover;
+            object-fit: cover; 
+            object-position: center;
             opacity: 0;
             animation: imageSlideshow 20s infinite linear;
         }
-
         .hero-slideshow-img:nth-child(1) { animation-delay: 0s; }
         .hero-slideshow-img:nth-child(2) { animation-delay: 5s; }
         .hero-slideshow-img:nth-child(3) { animation-delay: 10s; }
@@ -87,7 +82,6 @@
             background: rgba(0,0,0,0.15);
             z-index: 2;
         }
-
         .scroll-hint {
             position: absolute;
             bottom: 30px; left: 50%;
@@ -98,7 +92,7 @@
         }
         @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translate(-50%, 0);} 40% {transform: translate(-50%, -10px);} }
 
-        /* --- 3. 極簡文字導覽列 --- */
+        /* --- 3. 吸頂導覽列 --- */
         .nav-container {
             width: 100%;
             background: var(--bg-paper);
@@ -106,18 +100,15 @@
             position: sticky;
             top: 0; z-index: 1000;
         }
-
         .nav-grid {
             display: flex; justify-content: center; gap: 60px;
             max-width: 1200px; margin: 0 auto; padding: 25px 20px;
         }
-
         .nav-item {
             text-decoration: none; color: var(--text-dark);
             font-size: 17px; font-weight: 500; letter-spacing: 0.15rem;
             position: relative; transition: color 0.3s;
         }
-
         .nav-item:hover { color: var(--sunset-milk); }
         .nav-item::after {
             content: ''; position: absolute; bottom: -5px; left: 0;
@@ -137,12 +128,11 @@
             letter-spacing: 0.2rem;
         }
 
-        /* --- 5. 建築網格 --- */
+        /* --- 5. 建築網格內容 --- */
         .building-grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
             gap: 40px; max-width: 1200px; margin: 0 auto; padding: 0 20px 100px;
         }
-
         .building-card {
             background: white; border-radius: 12px; overflow: hidden;
             box-shadow: 0 4px 20px rgba(0,0,0,0.04); transition: 0.4s ease; cursor: pointer;
@@ -150,29 +140,26 @@
         .building-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(0,0,0,0.08); }
         .card-thumb { height: 240px; overflow: hidden; }
         .card-thumb img { width: 100%; height: 100%; object-fit: cover; transition: 0.6s; }
-        .building-card:hover .card-thumb img { transform: scale(1.1); }
         .card-content { padding: 30px; }
-        .card-content h3 { margin: 0 0 15px; font-weight: 700; }
+        .card-content h3 { margin: 0 0 15px; font-weight: 700; font-size: 1.3rem; }
         .card-content p { font-size: 15px; color: #666; line-height: 1.9; }
 
         /* --- 6. LINE 浮動按鈕 --- */
         .line-float {
-            position: fixed; right: 30px; bottom: 30px;
+            position: fixed; right: 25px; bottom: 25px;
             width: 60px; height: 60px;
             background-color: #06C755;
             border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
             color: white; text-decoration: none; font-size: 12px; font-weight: bold;
             z-index: 2000; box-shadow: 0 8px 20px rgba(6,199,85,0.4);
-            transition: transform 0.3s ease;
         }
-        .line-float:hover { transform: scale(1.1); }
 
         footer { text-align: center; padding: 60px 20px; color: #aaa; font-size: 13px; border-top: 1px solid var(--border-light); }
 
         @media (max-width: 768px) {
-            .nav-grid { gap: 20px; padding: 20px 10px; }
-            .hero-container { height: 75vh; }
+            .hero-container { height: 65vh; }
+            .nav-grid { gap: 15px; padding: 15px 10px; }
             .building-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -181,7 +168,7 @@
 
     <div id="loader-wrapper">
         <div class="loader-logo-container">
-            <img src="6.jpg" alt="拾陸 Logo"> 
+            <img src="6.jpg" alt="Logo"> 
             <div class="loader-slogan">拾得古建築的風骨，閱讀斗六的靈魂。</div>
         </div>
     </div>
@@ -189,10 +176,10 @@
     <div class="container">
         <div class="hero-container">
             <div class="hero-slideshow">
-                <img src="1.png" alt="封面1" class="hero-slideshow-img">
-                <img src="2.jpg" alt="封面2" class="hero-slideshow-img">
-                <img src="3.jpg" alt="封面3" class="hero-slideshow-img">
-                <img src="4.jpg" alt="封面4" class="hero-slideshow-img">
+                <img src="1.png" class="hero-slideshow-img">
+                <img src="2.jpg" class="hero-slideshow-img">
+                <img src="3.jpg" class="hero-slideshow-img">
+                <img src="4.jpg" class="hero-slideshow-img">
             </div>
             <div class="hero-overlay"></div>
             <div class="scroll-hint">SCROLL DOWN</div>
@@ -212,48 +199,54 @@
         </div>
         
         <div class="building-grid">
-            <div class="building-card" onclick="window.location.href='page01.html';">
-                <div class="card-thumb"><img src="2.jpg" alt="陳林氏寶宅"></div>
-                <div class="card-content"><h3>陳林氏寶宅</h3><p>採用傳統閩南式的「二進左右護龍」格局。展現豪門家族氣度。</p></div>
+            <div class="building-card" onclick="location.href='page01.html';">
+                <div class="card-thumb"><img src="2.jpg"></div>
+                <div class="card-content"><h3>陳林氏寶宅</h3><p>傳統閩南式格局，展現豪門家族氣度。</p></div>
             </div>
-            <div class="building-card" onclick="window.location.href='page02.html';">
-                <div class="card-thumb"><img src="3.jpg" alt="山牆"></div>
-                <div class="card-content"><h3>山牆</h3><p>東亞傳統建築中位於建築物兩側的側牆，因斜屋頂形似「山」字而得名。</p></div>
-            </div>
-            <div class="building-card">
-                <div class="card-thumb"><img src="4.jpg" alt="斗六農會"></div>
-                <div class="card-content"><h3>斗六農會</h3><p>歷史可以追溯至日治時期，結合了實用主義與時代美學。</p></div>
+            <div class="building-card" onclick="location.href='page02.html';">
+                <div class="card-thumb"><img src="3.jpg"></div>
+                <div class="card-content"><h3>山牆</h3><p>東亞傳統建築特色，因屋頂形似「山」字得名。</p></div>
             </div>
             <div class="building-card">
-                <div class="card-thumb"><img src="5.png" alt="仁德咖啡"></div>
-                <div class="card-content"><h3>仁德咖啡</h3><p>所在建築為「劉仁德老宅」，建於 1928 年，是斗六最具代表性的百年街屋。</p></div>
+                <div class="card-thumb"><img src="4.jpg"></div>
+                <div class="card-content"><h3>斗六農會</h3><p>百年歷史建築，結合實用主義與時代美學。</p></div>
+            </div>
+            <div class="building-card">
+                <div class="card-thumb"><img src="5.png"></div>
+                <div class="card-content"><h3>仁德咖啡</h3><p>斗六最具代表性的百年街屋，日治時期老宅。</p></div>
             </div>
         </div>
 
         <footer><p>© 拾陸 - 歷史建築導覽設計</p></footer>
-
         <a href="https://line.me" class="line-float">LINE</a>
     </div>
 
     <script>
-        // --- 動畫控制邏輯 ---
-        window.addEventListener("DOMContentLoaded", function() {
+        (function() {
             const loader = document.getElementById("loader-wrapper");
             
-            // 檢查是否為「本次瀏覽(Session)」第一次進入
-            if (sessionStorage.getItem("visited")) {
-                // 如果已經進來過，直接移除動畫層
+            // 檢查是否從站內跳轉回來的標記
+            const isInternal = sessionStorage.getItem("is_internal");
+
+            if (isInternal === "true") {
+                // 如果是站內回來，直接消失，並清除標記（確保下次新開頁面會有動畫）
                 loader.style.display = "none";
+                sessionStorage.removeItem("is_internal");
             } else {
-                // 如果是第一次進入，執行動畫並記錄狀態
+                // 如果是新開啟或是重新整理，正常執行動畫
                 window.addEventListener("load", function() {
                     setTimeout(() => {
                         loader.classList.add("loader-hidden");
-                        sessionStorage.setItem("visited", "true");
                     }, 1500); 
                 });
             }
-        });
+
+            // 監聽所有「即將跳轉」的行為
+            window.addEventListener("beforeunload", function() {
+                // 只要頁面即將離開，我們就設定標記
+                sessionStorage.setItem("is_internal", "true");
+            });
+        })();
     </script>
 </body>
 </html>
