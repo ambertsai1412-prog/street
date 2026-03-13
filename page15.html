@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>參考資料 - 拾陸建築導覽</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sunset-milk: #D68F66;
+            --muted-green: #7BA08E;
+            --faded-cherry: #B55D5D;
+            --bg-paper: #F8F7F2;
+            --text-dark: #2C2928;
+            --white-glass: rgba(255, 255, 255, 0.8);
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-paper);
+            font-family: 'Noto Serif TC', serif;
+            color: var(--text-dark);
+            line-height: 1.8;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- 返回按鈕 --- */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--white-glass);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--sunset-milk);
+            color: white;
+        }
+
+        /* --- 內容容器 --- */
+        .content-wrap {
+            max-width: 800px;
+            margin: 100px auto 60px;
+            padding: 0 20px;
+            flex: 1;
+        }
+
+        .ref-card {
+            background: white;
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+            border-top: 8px solid var(--muted-green);
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: var(--text-dark);
+            text-align: center;
+            letter-spacing: 4px;
+        }
+
+        /* --- 參考清單樣式 --- */
+        .ref-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .ref-item {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .ref-item:last-child {
+            border-bottom: none;
+        }
+
+        .ref-category {
+            display: inline-block;
+            font-size: 0.85rem;
+            color: white;
+            background: var(--muted-green);
+            padding: 2px 12px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .ref-title {
+            font-weight: 700;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 5px;
+            color: var(--text-dark);
+        }
+
+        .ref-meta {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .ref-link {
+            color: var(--sunset-milk);
+            text-decoration: none;
+            word-break: break-all;
+            font-size: 0.9rem;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .ref-link:hover {
+            text-decoration: underline;
+        }
+
+        /* --- 底部版權 --- */
+        .bottom-nav {
+            text-align: center;
+            padding: 40px;
+            border-top: 1px dashed #ccc;
+            margin-top: auto;
+        }
+
+        .copyright {
+            color: #999;
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .ref-card { padding: 30px 20px; }
+            h1 { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">
+        <span>←</span> 返回首頁
+    </a>
+
+    <div class="content-wrap">
+        <div class="ref-card">
+          <h1>參考資料</h1>
+            
+
+
+                <li class="ref-item">
+                    <span class="ref-category">數位典藏</span>
+                    <span class="ref-title">國家文化記憶庫 - 太平老街建築群</span>
+                    <span class="ref-meta">文化部。收錄關於斗六太平路建築立面與裝飾藝術之數位影像與說明。</span>
+                    <a href="https://culture.tw/" class="ref-link" target="_blank">https://tcmb.culture.tw/zh-tw/detail?id=259811&amp;indexCode=Culture_Place</a>
+                </li>
+
+
+          <li class="ref-item">
+                    <span class="ref-category">實地調查</span>
+                    <span class="ref-title">拾陸團隊現場採訪與攝影</span>
+                    <span class="ref-meta">調查地點：斗六太平老街、陳林氏寶宅。調查日期：2026年 1-3月。</span>
+                </li>
+			
+			                <li class="ref-item">
+                    <span class="ref-category">人工智慧</span>
+                    <span class="ref-title">Gemini</span>
+                    <span class="ref-meta">資料查詢、靈感發覺、網頁製作</span>
+                </li>
+            </ul>
+            </ul>
+        </div>
+    </div>
+
+    <footer class="bottom-nav">
+        <p class="copyright">Copyright © 2026 拾陸團隊版權所有</p>
+    </footer>
+
+    <script>
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+    </script>
+
+</body>
+</html>
