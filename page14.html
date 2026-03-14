@@ -104,10 +104,12 @@
             .character-container { padding-left: 5%; }
 
             /* 3. 背景圖片優化：確保在手機上不會被放大到失真 */
-            #game-stage {
-                background-attachment: scroll; /* 避免手機端視差滾動造成的縮放問題 */
-                background-size: cover; /* 確保填滿但不變形 */
-            }
+#game-stage {
+    background-size: contain; /* 完整顯示整張圖，不裁切 */
+    background-repeat: no-repeat;
+    background-color: #000; /* 空白處補黑色 */
+    background-position: center 20%; /* 讓圖稍微往上移，留空間給對話框 */
+}
 
             /* 4. 對話框文字與按鈕放大 */
             .dialogue-box {
