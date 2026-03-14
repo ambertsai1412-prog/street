@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>劉仁德老宅 - 拾陸建築導覽</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sunset-milk: #D68F66;
+            --muted-green: #7BA08E;
+            --faded-cherry: #B55D5D;
+            --bg-paper: #F8F7F2;
+            --text-dark: #2C2928;
+            --white-glass: rgba(255, 255, 255, 0.8);
+            --photo-bg: #eae8e1; 
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-paper);
+            font-family: 'Noto Serif TC', serif;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* --- 返回按鈕 --- */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--white-glass);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--faded-cherry);
+            color: white;
+        }
+
+        /* --- 圖片容器 --- */
+        .detail-hero {
+            width: 100%;
+            height: auto; 
+            overflow: hidden;
+            border-bottom: 8px solid var(--faded-cherry); /* 使用帶有歷史感的紅褐色 */
+            background-color: var(--photo-bg);
+            min-height: 30vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .detail-hero img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            object-fit: contain; 
+            display: block;
+        }
+
+        /* --- 內容容器 --- */
+        .content-wrap {
+            max-width: 800px;
+            margin: 20px auto 60px;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .main-card {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+        }
+
+        .category-tag {
+            color: var(--faded-cherry);
+            font-weight: bold;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0 0 20px;
+            color: var(--text-dark);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        .info-section { margin-top: 40px; }
+        .info-section h2 {
+            color: var(--faded-cherry);
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .info-section h2::before {
+            content: "";
+            width: 6px;
+            height: 24px;
+            background: var(--faded-cherry);
+            display: inline-block;
+            border-radius: 3px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .feature-item {
+            background: #fafaf9;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid var(--muted-green);
+        }
+
+        .feature-item b {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--muted-green);
+            font-size: 1.1rem;
+        }
+
+        .history-box {
+            background: #fdfaf3;
+            border: 1px solid #eee;
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 30px;
+        }
+
+        .history-box h3 {
+            margin-top: 0;
+            color: var(--sunset-milk);
+            font-size: 1.2rem;
+        }
+
+        .bottom-nav {
+            text-align: center;
+            margin-top: 50px;
+            padding: 40px;
+            border-top: 1px dashed #ccc;
+        }
+
+        @media (max-width: 768px) {
+            .detail-hero { min-height: 25vh; }
+            .content-wrap { margin-top: 10px; }
+            .main-card { padding: 25px; border-radius: 20px; }
+            h1 { font-size: 1.8rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">
+        <span>←</span> 返回首頁
+    </a>
+
+    <div class="detail-hero">
+        <img src="5.png" alt="劉仁德老宅外觀">
+    </div>
+
+    <div class="content-wrap">
+        <article class="main-card">
+            <span class="category-tag">建造年份：1928年（昭和3年）</span>
+            <h1>劉仁德老宅</h1>
+            
+            <p class="intro-text">
+                這座隱身於街頭的昭和時期建築，深受現代裝飾主義影響。灰色立面、優雅的酒瓶式欄杆與內部壯麗的挑高大木結構，承載了劉氏家族從米業地主到戰後轉型的起伏歲月。
+            </p>
+
+            <div class="info-section">
+                <h2>建築風格與修復</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <b>裝飾主義立面</b>
+                        灰色立面展現了昭和時期的現代感，搭配經典的「酒瓶式欄杆」，比例和諧且精緻。
+                    </div>
+                    <div class="feature-item">
+                        <b>挑高大木結構</b>
+                        修繕時意外發現內部壯麗的大木結構，成為決定投入「私有老建築再生計畫」的關鍵契機。
+                    </div>
+                    <div class="feature-item">
+                        <b>修復精神</b>
+                        歷經六年修復，秉持「尊重原貌、賦予新生命」的理念，讓百年老宅重新呼吸。
+                    </div>
+                    <div class="feature-item">
+                        <b>現狀：家的味道</b>
+                        目前由女兒劉美吟經營咖啡館，將阿祖（劉仁德）的名字與家的記憶融入咖啡香中。
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-box">
+                <h3>家族記憶：從鼎盛到重生</h3>
+                <p>
+                    <b>劉仁德先生（1887－?）</b>自1896年遷至斗六後，經營米業與肥料致富，曾是知名地主。1940年代末因土地政策與<b>「四萬換一元」</b>弊制改革，經歷財富縮水的艱辛時期。
+                </p>
+                <p>
+                    今日的老宅，不僅是一座歷史建築，更是家族情感的延續。透過精心的空間轉譯，老宅從私人居所轉變為與大眾分享故事的溫馨場所。
+                </p>
+            </div>
+        </article>
+
+        <footer class="bottom-nav">
+            <p style="color: #999;">Copyright © 2026 拾陸團隊版權所有</p>
+        </footer>
+    </div>
+
+</body>
+</html>

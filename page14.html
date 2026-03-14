@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>拾陸：時光修復師 | 太平老街全紀實</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --vintage-gold: #D68F66;
+            --text-dark: #2C2928;
+            --white-glass: rgba(255, 255, 255, 0.95);
+        }
+
+        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Noto Serif TC', serif; background: #1a1a1a; overflow: hidden; }
+
+        #game-stage {
+            width: 100vw; height: 100vh;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+            transition: filter 1s ease, background-image 0.8s ease-in-out;
+            display: flex; flex-direction: column; justify-content: flex-end;
+            background-color: #333; 
+        }
+
+        .past-filter { filter: sepia(0.4) contrast(1.1) brightness(0.9); }
+
+        /* UI 元件 */
+        .top-ui {
+            position: absolute; top: 20px; width: 100%;
+            display: flex; justify-content: space-between; padding: 0 30px; box-sizing: border-box;
+            z-index: 100;
+        }
+
+        /* 新增：左側按鈕區容器 */
+        .left-ui-group { display: flex; gap: 15px; align-items: center; }
+
+        /* 新增：返回首頁按鈕樣式 */
+        .home-btn {
+            background: var(--white-glass);
+            border: 2px solid var(--vintage-gold);
+            padding: 8px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            color: var(--text-dark);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+        .home-btn:hover { background: var(--vintage-gold); color: white; transform: scale(1.05); }
+
+        .status-badge {
+            background: var(--white-glass); padding: 10px 20px;
+            border-radius: 50px; font-weight: bold; color: var(--text-dark);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            backdrop-filter: blur(5px);
+        }
+
+        #inventory { display: flex; gap: 10px; }
+        .item-slot {
+            width: 50px; height: 50px; background: rgba(0,0,0,0.6);
+            border: 2px solid var(--vintage-gold); border-radius: 10px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+        }
+
+        /* 主角視覺 */
+        .character-container {
+            position: relative; width: 100%; display: flex;
+            justify-content: flex-start; padding-left: 8%; 
+            pointer-events: none; z-index: 10; 
+        }
+        #player-sprite {
+            width: 22vw; max-width: 320px; height: auto;
+            margin-bottom: -25vh; 
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+            animation: breathe 4s infinite ease-in-out;
+            transform-origin: bottom center;
+        }
+
+        /* 對話框 */
+        .dialogue-box {
+            height: 32vh; background: var(--white-glass);
+            margin: 0 20px 20px 20px; border-radius: 20px;
+            padding: 35px 45px; box-sizing: border-box;
+            position: relative; border: 4px solid var(--vintage-gold);
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.6);
+            z-index: 50; backdrop-filter: blur(10px);
+        }
+        .char-name {
+            position: absolute; top: -20px; left: 40px;
+            background: var(--vintage-gold); color: white;
+            padding: 5px 25px; border-radius: 10px; font-weight: bold;
+            font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .text-content { font-size: 1.25rem; color: var(--text-dark); line-height: 1.6; min-height: 3.5em; }
+        .options { margin-top: 15px; display: flex; gap: 12px; flex-wrap: wrap; opacity: 1; transition: 0.5s; }
+        .opt-btn {
+            padding: 8px 20px; border: 2px solid var(--vintage-gold);
+            background: white; border-radius: 50px; cursor: pointer;
+            font-family: inherit; font-weight: bold; font-size: 0.95rem;
+            color: var(--text-dark); transition: 0.3s;
+        }
+        .opt-btn:hover { background: var(--vintage-gold); color: white; transform: translateY(-2px); }
+
+        #flash { position: fixed; top:0; left:0; width:100%; height:100%; background: white; opacity: 0; pointer-events: none; z-index: 1000; }
+
+        @keyframes breathe {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="flash"></div>
+
+    <div id="game-stage">
+        <div class="character-container">
+            <img id="player-sprite" src="7.png" alt="修復師主角">
+        </div>
+
+        <div class="top-ui">
+            <div class="left-ui-group">
+                <a href="index.html" class="home-btn">🏠 返回首頁</a>
+                <div class="status-badge" id="current-info">太平老街探索</div>
+            </div>
+            <div id="inventory">
+                <div class="item-slot" id="slot-camera">📷</div>
+                <div id="slot-item" class="item-slot"></div>
+            </div>
+        </div>
+
+        <div class="dialogue-box">
+            <div class="char-name" id="speaker">時光修復師</div>
+            <div class="text-content" id="dialogue-text">正在對齊時空座標...</div>
+            <div class="options" id="options-container"></div>
+        </div>
+    </div>
+
+<script>
+    // --- 腳本與邏輯保持不變 ---
+    const state = { location: 'farmers_assoc', isPast: false, isTalking: false };
+
+    const script = {
+        'farmers_assoc': {
+            modern: { 
+                bg: '4.jpg', 
+                text: "站在西市場門口的農會前。這棟純白色的建築雖然為了維持整潔感而粉刷，但右側加蓋的部分顯得並不對稱。白漆下似乎隱藏著原本的色彩...", 
+                speaker: "主角", 
+                opts: [{ text: "📷 穿梭到 1914 年看原貌", action: 'shutter' }, { text: "繼續往老街深處走", next: 'phantom_chen' }]
+            },
+            past: {
+                bg: 'past_farmers.jpg',
+                text: "回到了 1914 年。當時的『信用組合』竟然是優雅的淡綠色牆面，而且左右完全對稱。這種美感被後來的改建遮蓋了。",
+                speaker: "主角",
+                opts: [{ text: "📷 回到現代", action: 'shutter' }]
+            }
+        },
+        'phantom_chen': {
+            modern: {
+                bg: '8.png',
+                text: "相機發出了共鳴。據說這裡曾有一座驚艷斗六的宅邸，但現代已經不復存在了。這就是妳要守護的消失記憶...",
+                speaker: "主角",
+                opts: [{ text: "📷 顯影：召喚 1920 年代的記憶", action: 'shutter' }]
+            },
+            past: {
+                bg: '2.jpg',
+                text: "出現了！這就是陳林氏寶宅。山牆上精緻的勳章飾與泥塑展現出強烈的巴洛克風情。陳林氏寶女士可是當時極具影響力的女企業家。",
+                speaker: "主角",
+                opts: [{ text: "觀察洗石子細節", next: 'chen_detail' }]
+            }
+        },
+        'chen_detail': {
+            past: {
+                bg: '2.jpg',
+                text: "這棟宅邸採用閩南式的『二進左右護龍』。這座融合了意志與財力的傑作，在時光中消失真的太可惜了。",
+                speaker: "主角",
+                opts: [{ text: "📷 帶著這份記憶回到現代", action: 'shutter' }]
+            }
+        },
+        'street_walk': {
+            modern: {
+                bg: '3.jpg',
+                text: "沿著太平路走。這一段的山牆繁複，**深受巴洛克風格影響**；再往前走，風格轉向幾何圓形，**受裝飾藝術風格影響**。",
+                speaker: "主角",
+                opts: [{ text: "抵達劉仁德老宅", next: 'liu_house' }]
+            }
+        },
+        'liu_house': {
+            modern: { 
+                bg: 'liu_modern.jpg',
+                text: "抵達 1928 年建造的劉宅。灰色立面、酒瓶欄杆，線條簡潔，**深受現代主義影響**。小葉正站在門口等妳。", 
+                speaker: "主角", 
+                opts: [{ text: "與小葉交談", next: 'talk_yeh' }] 
+            }
+        },
+        'talk_yeh': {
+            modern: {
+                bg: '5.png',
+                text: "小葉：『妳來了。這座壯麗的大木結構，修復核心需要精確的支撐點數據。看來非得請教劉老先生不可了。』",
+                speaker: "小葉",
+                opts: [{ text: "📷 穿梭見劉老先生", action: 'shutter' }]
+            }
+        },
+        'past_liu': {
+            past: {
+                bg: 'liu_past.jpg',
+                text: "劉老先生：『孩子，這房子的重心藏在酒瓶裝飾正下方的暗榫。記住，不論時代怎麼變，根基要穩，家才不會散。』",
+                speaker: "劉老先生",
+                opts: [{ text: "記錄秘密並回到現代", action: 'finish_quest' }]
+            }
+        },
+        'modern_finale': {
+            modern: {
+                bg: '5.png',
+                text: "六年修復，一磚一瓦都回到了正確的位置。現在這裡飄著咖啡香，小吟笑著遞上一杯咖啡。",
+                speaker: "主角",
+                opts: [{ text: "與小吟聊聊", next: 'talk_吟' }]
+            }
+        },
+        'talk_吟': {
+            modern: {
+                bg: '5.png',
+                text: "小吟：『謝謝妳跟小葉，讓阿祖的名字能隨著咖啡香，繼續留在太平老街。這是我們家最美的重生。』",
+                speaker: "小吟",
+                opts: [{ text: "完成修復之旅", action: 'end' }]
+            }
+        }
+    };
+
+    function typeWriter(text) {
+        if (state.isTalking) return;
+        state.isTalking = true;
+        const el = document.getElementById('dialogue-text');
+        const optContainer = document.getElementById('options-container');
+        optContainer.style.opacity = 0;
+        el.innerText = '';
+        let i = 0;
+        function type() {
+            if (i < text.length) {
+                el.innerText += text.charAt(i); i++;
+                setTimeout(type, 35);
+            } else {
+                state.isTalking = false;
+                optContainer.style.opacity = 1;
+            }
+        }
+        type();
+    }
+
+    function render() {
+        const timeKey = state.isPast ? 'past' : 'modern';
+        let sceneKey = state.location;
+        if (state.isPast && sceneKey === 'talk_yeh') sceneKey = 'past_liu';
+        if (!state.isPast && sceneKey === 'chen_detail') sceneKey = 'street_walk';
+
+        const scene = script[sceneKey][timeKey] || script[sceneKey]['modern'];
+        
+        const stage = document.getElementById('game-stage');
+        if (scene.bg) stage.style.backgroundImage = `url('${scene.bg}')`;
+        state.isPast ? stage.classList.add('past-filter') : stage.classList.remove('past-filter');
+
+        document.getElementById('speaker').innerText = scene.speaker;
+        document.getElementById('current-info').innerText = state.isPast ? "時空回溯中" : "太平老街探索中";
+        typeWriter(scene.text);
+
+        const optContainer = document.getElementById('options-container');
+        optContainer.innerHTML = '';
+        scene.opts.forEach(opt => {
+            const btn = document.createElement('button');
+            btn.className = 'opt-btn'; btn.innerText = opt.text;
+            btn.onclick = () => {
+                if (opt.action === 'shutter') { shutterEffect(); }
+                else if (opt.action === 'finish_quest') {
+                    document.getElementById('slot-item').innerText = '🏗️';
+                    alert("妳解開了劉宅大木結構的奧秘！");
+                    state.location = 'modern_finale';
+                    if (state.isPast) shutterEffect(); else render();
+                }
+                else if (opt.action === 'end') { 
+                    alert("遊戲結束：太平老街的記憶已被妳溫柔守護。");
+                    window.location.reload(); 
+                }
+                else { state.location = opt.next; render(); }
+            };
+            optContainer.appendChild(btn);
+        });
+    }
+
+    function shutterEffect() {
+        const flash = document.getElementById('flash');
+        flash.style.opacity = 1;
+        setTimeout(() => { flash.style.opacity = 0; state.isPast = !state.isPast; render(); }, 300);
+    }
+
+    render();
+</script>
+</body>
+</html>

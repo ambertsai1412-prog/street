@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>斗六市農會 - 拾陸建築導覽</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sunset-milk: #D68F66;
+            --muted-green: #7BA08E;
+            --faded-cherry: #B55D5D;
+            --bg-paper: #F8F7F2;
+            --text-dark: #2C2928;
+            --white-glass: rgba(255, 255, 255, 0.8);
+            --photo-bg: #eae8e1; 
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--bg-paper);
+            font-family: 'Noto Serif TC', serif;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* --- 返回按鈕 --- */
+        .back-btn {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: var(--white-glass);
+            backdrop-filter: blur(10px);
+            padding: 10px 20px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--sunset-milk);
+            color: white;
+        }
+
+        /* --- 圖片容器 --- */
+        .detail-hero {
+            width: 100%;
+            height: auto; 
+            overflow: hidden;
+            border-bottom: 8px solid var(--muted-green); /* 更換為農會風格的綠色 */
+            background-color: var(--photo-bg);
+            min-height: 30vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .detail-hero img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            object-fit: contain; 
+            display: block;
+        }
+
+        /* --- 內容容器 --- */
+        .content-wrap {
+            max-width: 800px;
+            margin: 20px auto 60px;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .main-card {
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.05);
+        }
+
+        .category-tag {
+            color: var(--muted-green);
+            font-weight: bold;
+            letter-spacing: 2px;
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin: 0 0 20px;
+            color: var(--text-dark);
+            border-bottom: 2px solid #eee;
+            padding-bottom: 20px;
+        }
+
+        .intro-text {
+            font-size: 1.1rem;
+            color: #444;
+            margin-bottom: 30px;
+        }
+
+        .info-section { margin-top: 40px; }
+        .info-section h2 {
+            color: var(--muted-green);
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .info-section h2::before {
+            content: "";
+            width: 6px;
+            height: 24px;
+            background: var(--muted-green);
+            display: inline-block;
+            border-radius: 3px;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .feature-item {
+            background: #fafaf9;
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid var(--sunset-milk);
+        }
+
+        .feature-item b {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--sunset-milk);
+            font-size: 1.1rem;
+        }
+
+        .history-box {
+            background: #fdfaf3;
+            border: 1px solid #eee;
+            padding: 25px;
+            border-radius: 20px;
+            margin-top: 30px;
+        }
+
+        .history-box h3 {
+            margin-top: 0;
+            color: var(--faded-cherry);
+            font-size: 1.2rem;
+        }
+
+        .bottom-nav {
+            text-align: center;
+            margin-top: 50px;
+            padding: 40px;
+            border-top: 1px dashed #ccc;
+        }
+
+        @media (max-width: 768px) {
+            .detail-hero { min-height: 25vh; }
+            .content-wrap { margin-top: 10px; }
+            .main-card { padding: 25px; border-radius: 20px; }
+            h1 { font-size: 1.8rem; }
+            .feature-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">
+        <span>←</span> 返回首頁
+    </a>
+
+    <div class="detail-hero">
+        <img src="4.jpg" alt="斗六市農會建築全景">
+    </div>
+
+    <div class="content-wrap">
+        <article class="main-card">
+            <span class="category-tag">創立於 1914年（日治時期）</span>
+            <h1>斗六市農會</h1>
+            
+            <p class="intro-text">
+                斗六市農會見證了台灣從農業社會轉型至工商業社會的百年歷程。從最初的信用組合到現今多元經營的農會組織，
+                其建築不僅坐落於繁忙的西市場入口，更以一身純白外衣，成為太平老街周邊顯眼的歷史地標。
+            </p>
+
+            <div class="info-section">
+                <h2>組織演進歷程</h2>
+                <div class="feature-grid">
+                    <div class="feature-item">
+                        <b>1914年：創立初期</b>
+                        最初名稱為「有限責任斗六街信用組合」，奠定地方金融與農業互助的基礎。
+                    </div>
+                    <div class="feature-item">
+                        <b>1920年：區域調整</b>
+                        因應大正九年行政區域調整，改稱為「有限責任斗六信用購買販賣利用組合」。
+                    </div>
+                    <div class="feature-item">
+                        <b>1945－1949年：戰後改組</b>
+                        歷經「斗六街農業會」、「斗六鎮合作社」，至1949年正式定名為「斗六鎮農會」。
+                    </div>
+                    <div class="feature-item">
+                        <b>1981年：現今名稱</b>
+                        隨著斗六升格為縣轄市，正式定名為「斗六市農會」，沿用至今。
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-box">
+                <h3>建築轉身：2006年的現代守護</h3>
+                <p>
+                    在<b>「太平老街」</b>與周邊歷史建築的整體維護計畫中，農會建築進行了拉皮與修繕。
+                </p>
+                <p>
+                    為了使其在繁雜的<b>西市場入口</b>更顯眼且維持整潔感，外牆被漆上了<b>純白色</b>。這種簡約而明亮的視覺效果，也成為現今大眾對農會的第一印象，成功地在老舊市場街區中開闢出一抹清新。
+                </p>
+            </div>
+        </article>
+
+        <footer class="bottom-nav">
+            <p style="color: #999;">Copyright © 2026 拾陸團隊版權所有</p>
+        </footer>
+    </div>
+
+</body>
+</html>
