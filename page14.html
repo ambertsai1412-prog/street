@@ -2,6 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>拾陸：時光修復師 | 太平老街全紀實</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -13,6 +14,7 @@
 
         body, html { margin: 0; padding: 0; height: 100%; font-family: 'Noto Serif TC', serif; background: #1a1a1a; overflow: hidden; }
 
+        /* 遊戲舞台 */
         #game-stage {
             width: 100vw; height: 100vh;
             position: relative;
@@ -32,10 +34,8 @@
             z-index: 100;
         }
 
-        /* 新增：左側按鈕區容器 */
         .left-ui-group { display: flex; gap: 15px; align-items: center; }
 
-        /* 新增：返回首頁按鈕樣式 */
         .home-btn {
             background: var(--white-glass);
             border: 2px solid var(--vintage-gold);
@@ -70,7 +70,7 @@
             font-size: 20px;
         }
 
-        /* 主角視覺 */
+        /* 主角視覺設定 */
         .character-container {
             position: relative; width: 100%; display: flex;
             justify-content: flex-start; padding-left: 8%; 
@@ -78,7 +78,7 @@
         }
         #player-sprite {
             width: 22vw; max-width: 320px; height: auto;
-            margin-bottom: -25vh; 
+            margin-bottom: -25vh; /* 電腦版讓主角下半身藏在框後 */
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
             animation: breathe 4s infinite ease-in-out;
             transform-origin: bottom center;
@@ -110,6 +110,32 @@
         .opt-btn:hover { background: var(--vintage-gold); color: white; transform: translateY(-2px); }
 
         #flash { position: fixed; top:0; left:0; width:100%; height:100%; background: white; opacity: 0; pointer-events: none; z-index: 1000; }
+
+        /* --- 手機版 RWD 優化 --- */
+        @media (max-width: 768px) {
+            .top-ui {
+                padding: 0 15px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+            .left-ui-group { flex-direction: row; gap: 8px; }
+            .home-btn, .status-badge { font-size: 0.8rem; padding: 6px 12px; }
+            
+            #player-sprite {
+                width: 48vw; /* 手機上主角放大一點 */
+                margin-bottom: -12vh; /* 縮小負邊距，讓主角整個人往上提 */
+            }
+            .character-container { padding-left: 5%; }
+
+            .dialogue-box {
+                height: 38vh; /* 手機框稍微高一點點好讀字 */
+                padding: 25px 20px;
+                margin: 0 10px 15px 10px;
+            }
+            .text-content { font-size: 1.05rem; }
+            .opt-btn { font-size: 0.85rem; padding: 6px 15px; }
+        }
 
         @keyframes breathe {
             0%, 100% { transform: translateY(0); }
@@ -145,7 +171,6 @@
     </div>
 
 <script>
-    // --- 腳本與邏輯保持不變 ---
     const state = { location: 'farmers_assoc', isPast: false, isTalking: false };
 
     const script = {
