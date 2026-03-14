@@ -14,7 +14,6 @@
 
         body, html { margin: 0; padding: 0; height: 100%; font-family: 'Noto Serif TC', serif; background: #1a1a1a; overflow: hidden; }
 
-        /* 遊戲舞台 */
         #game-stage {
             width: 100vw; height: 100vh;
             position: relative;
@@ -27,114 +26,108 @@
 
         .past-filter { filter: sepia(0.4) contrast(1.1) brightness(0.9); }
 
-        /* UI 元件 */
+        /* UI 元件 - 電腦版預設 */
         .top-ui {
             position: absolute; top: 20px; width: 100%;
             display: flex; justify-content: space-between; padding: 0 30px; box-sizing: border-box;
             z-index: 100;
         }
-
         .left-ui-group { display: flex; gap: 15px; align-items: center; }
-
         .home-btn {
-            background: var(--white-glass);
-            border: 2px solid var(--vintage-gold);
-            padding: 8px 15px;
-            border-radius: 50px;
-            cursor: pointer;
-            font-family: inherit;
-            font-weight: bold;
-            color: var(--text-dark);
-            text-decoration: none;
-            font-size: 0.9rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-            transition: 0.3s;
+            background: var(--white-glass); border: 2px solid var(--vintage-gold);
+            padding: 8px 15px; border-radius: 50px; cursor: pointer;
+            font-family: inherit; font-weight: bold; color: var(--text-dark);
+            text-decoration: none; font-size: 0.9rem; display: flex;
+            align-items: center; gap: 5px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); transition: 0.3s;
         }
-        .home-btn:hover { background: var(--vintage-gold); color: white; transform: scale(1.05); }
-
         .status-badge {
-            background: var(--white-glass); padding: 10px 20px;
-            border-radius: 50px; font-weight: bold; color: var(--text-dark);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            backdrop-filter: blur(5px);
+            background: var(--white-glass); padding: 10px 20px; border-radius: 50px;
+            font-weight: bold; color: var(--text-dark); box-shadow: 0 4px 15px rgba(0,0,0,0.3); backdrop-filter: blur(5px);
         }
-
         #inventory { display: flex; gap: 10px; }
         .item-slot {
             width: 50px; height: 50px; background: rgba(0,0,0,0.6);
             border: 2px solid var(--vintage-gold); border-radius: 10px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 20px;
+            display: flex; align-items: center; justify-content: center; font-size: 20px;
         }
 
-        /* 主角視覺設定 */
+        /* 主角視覺 - 電腦版預設 */
         .character-container {
             position: relative; width: 100%; display: flex;
-            justify-content: flex-start; padding-left: 8%; 
-            pointer-events: none; z-index: 10; 
+            justify-content: flex-start; padding-left: 8%; pointer-events: none; z-index: 10; 
         }
         #player-sprite {
-            width: 22vw; max-width: 320px; height: auto;
-            margin-bottom: -25vh; /* 電腦版讓主角下半身藏在框後 */
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
-            animation: breathe 4s infinite ease-in-out;
-            transform-origin: bottom center;
+            width: 22vw; max-width: 320px; height: auto; margin-bottom: -25vh; 
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); animation: breathe 4s infinite ease-in-out; transform-origin: bottom center;
         }
 
-        /* 對話框 */
+        /* 對話框 - 電腦版預設 */
         .dialogue-box {
-            height: 32vh; background: var(--white-glass);
-            margin: 0 20px 20px 20px; border-radius: 20px;
-            padding: 35px 45px; box-sizing: border-box;
-            position: relative; border: 4px solid var(--vintage-gold);
-            box-shadow: 0 -10px 40px rgba(0,0,0,0.6);
+            height: 32vh; background: var(--white-glass); margin: 0 20px 20px 20px;
+            border-radius: 20px; padding: 35px 45px; box-sizing: border-box;
+            position: relative; border: 4px solid var(--vintage-gold); box-shadow: 0 -10px 40px rgba(0,0,0,0.6);
             z-index: 50; backdrop-filter: blur(10px);
         }
         .char-name {
-            position: absolute; top: -20px; left: 40px;
-            background: var(--vintage-gold); color: white;
-            padding: 5px 25px; border-radius: 10px; font-weight: bold;
+            position: absolute; top: -20px; left: 40px; background: var(--vintage-gold);
+            color: white; padding: 5px 25px; border-radius: 10px; font-weight: bold;
             font-size: 1.1rem; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
         }
         .text-content { font-size: 1.25rem; color: var(--text-dark); line-height: 1.6; min-height: 3.5em; }
         .options { margin-top: 15px; display: flex; gap: 12px; flex-wrap: wrap; opacity: 1; transition: 0.5s; }
         .opt-btn {
-            padding: 8px 20px; border: 2px solid var(--vintage-gold);
-            background: white; border-radius: 50px; cursor: pointer;
-            font-family: inherit; font-weight: bold; font-size: 0.95rem;
-            color: var(--text-dark); transition: 0.3s;
+            padding: 8px 20px; border: 2px solid var(--vintage-gold); background: white;
+            border-radius: 50px; cursor: pointer; font-family: inherit; font-weight: bold;
+            font-size: 0.95rem; color: var(--text-dark); transition: 0.3s;
         }
         .opt-btn:hover { background: var(--vintage-gold); color: white; transform: translateY(-2px); }
 
         #flash { position: fixed; top:0; left:0; width:100%; height:100%; background: white; opacity: 0; pointer-events: none; z-index: 1000; }
 
-        /* --- 手機版 RWD 優化 --- */
+        /* ==============================
+           📱 手機版強化優化 (RWD)
+           ============================== */
         @media (max-width: 768px) {
-            .top-ui {
-                padding: 0 15px;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 8px;
-            }
-            .left-ui-group { flex-direction: row; gap: 8px; }
-            .home-btn, .status-badge { font-size: 0.8rem; padding: 6px 12px; }
-            
-            #player-sprite {
-                width: 48vw; /* 手機上主角放大一點 */
-                margin-bottom: -12vh; /* 縮小負邊距，讓主角整個人往上提 */
-            }
-            .character-container { padding-left: 5%; }
+            /* 1. UI 頂部大按鈕化 */
+            .top-ui { padding: 0 15px; top: 15px; flex-direction: column; align-items: flex-start; gap: 10px; }
+            .home-btn { font-size: 1.1rem; padding: 10px 18px; }
+            .status-badge { font-size: 1rem; padding: 8px 18px; }
+            .item-slot { width: 45px; height: 45px; font-size: 1.5rem; }
 
-            .dialogue-box {
-                height: 38vh; /* 手機框稍微高一點點好讀字 */
-                padding: 25px 20px;
-                margin: 0 10px 15px 10px;
+            /* 2. 主角有感放大 */
+            #player-sprite {
+                width: 55vw; /* 讓主角在手機上更突出 */
+                max-width: 250px;
+                margin-bottom: -15vh; /* 讓主角往上提 */
             }
-            .text-content { font-size: 1.05rem; }
-            .opt-btn { font-size: 0.85rem; padding: 6px 15px; }
+            .character-container { padding-left: 2%; }
+
+            /* 3. 對話框文字與按鈕放大 */
+            .dialogue-box {
+                height: 42vh; /* 增加高度容納大文字 */
+                padding: 35px 25px 20px 25px;
+                margin: 0 10px 10px 10px;
+                border-width: 3px;
+            }
+            .char-name {
+                font-size: 1.3rem; /* 角色名字大一點 */
+                top: -18px;
+                left: 25px;
+            }
+            .text-content {
+                font-size: 1.2rem; /* 對話內容變大方便閱讀 */
+                line-height: 1.5;
+            }
+            .options {
+                margin-top: 20px;
+                gap: 10px;
+            }
+            .opt-btn {
+                font-size: 1.1rem; /* 選項按鈕變超大，好點擊 */
+                padding: 12px 22px;
+                width: 100%; /* 選項佔滿寬度，手指好按 */
+                text-align: center;
+            }
         }
 
         @keyframes breathe {
@@ -144,14 +137,11 @@
     </style>
 </head>
 <body>
-
     <div id="flash"></div>
-
     <div id="game-stage">
         <div class="character-container">
             <img id="player-sprite" src="7.png" alt="修復師主角">
         </div>
-
         <div class="top-ui">
             <div class="left-ui-group">
                 <a href="index.html" class="home-btn">🏠 返回首頁</a>
@@ -162,7 +152,6 @@
                 <div id="slot-item" class="item-slot"></div>
             </div>
         </div>
-
         <div class="dialogue-box">
             <div class="char-name" id="speaker">時光修復師</div>
             <div class="text-content" id="dialogue-text">正在對齊時空座標...</div>
@@ -171,8 +160,8 @@
     </div>
 
 <script>
+    /* 腳本邏輯部分完全保留妳原本的內容 */
     const state = { location: 'farmers_assoc', isPast: false, isTalking: false };
-
     const script = {
         'farmers_assoc': {
             modern: { 
@@ -285,17 +274,13 @@
         let sceneKey = state.location;
         if (state.isPast && sceneKey === 'talk_yeh') sceneKey = 'past_liu';
         if (!state.isPast && sceneKey === 'chen_detail') sceneKey = 'street_walk';
-
         const scene = script[sceneKey][timeKey] || script[sceneKey]['modern'];
-        
         const stage = document.getElementById('game-stage');
         if (scene.bg) stage.style.backgroundImage = `url('${scene.bg}')`;
         state.isPast ? stage.classList.add('past-filter') : stage.classList.remove('past-filter');
-
         document.getElementById('speaker').innerText = scene.speaker;
         document.getElementById('current-info').innerText = state.isPast ? "時空回溯中" : "太平老街探索中";
         typeWriter(scene.text);
-
         const optContainer = document.getElementById('options-container');
         optContainer.innerHTML = '';
         scene.opts.forEach(opt => {
@@ -324,7 +309,6 @@
         flash.style.opacity = 1;
         setTimeout(() => { flash.style.opacity = 0; state.isPast = !state.isPast; render(); }, 300);
     }
-
     render();
 </script>
 </body>
