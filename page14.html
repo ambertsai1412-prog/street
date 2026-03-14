@@ -84,52 +84,57 @@
 
         #flash { position: fixed; top:0; left:0; width:100%; height:100%; background: white; opacity: 0; pointer-events: none; z-index: 1000; }
 
-        /* ==============================
-           📱 手機版強化優化 (RWD)
+/* ==============================
+           📱 手機版強化優化 (RWD) - 平衡修正版
            ============================== */
         @media (max-width: 768px) {
             /* 1. UI 頂部大按鈕化 */
-            .top-ui { padding: 0 15px; top: 15px; flex-direction: column; align-items: flex-start; gap: 10px; }
-            .home-btn { font-size: 1.1rem; padding: 10px 18px; }
-            .status-badge { font-size: 1rem; padding: 8px 18px; }
-            .item-slot { width: 45px; height: 45px; font-size: 1.5rem; }
+            .top-ui { padding: 0 15px; top: 15px; flex-direction: column; align-items: flex-start; gap: 8px; }
+            .left-ui-group { flex-direction: row; gap: 8px; }
+            .home-btn { font-size: 1rem; padding: 8px 15px; }
+            .status-badge { font-size: 0.9rem; padding: 6px 15px; }
+            .item-slot { width: 40px; height: 40px; font-size: 1.2rem; }
 
-            /* 2. 主角有感放大 */
+            /* 2. 主角大小修正：縮小到 45vw，避免太巨大 */
             #player-sprite {
-                width: 55vw; /* 讓主角在手機上更突出 */
-                max-width: 250px;
-                margin-bottom: -15vh; /* 讓主角往上提 */
+                width: 45vw; 
+                max-width: 220px;
+                margin-bottom: -10vh; /* 調整高度，讓她自然地站立 */
             }
-            .character-container { padding-left: 2%; }
+            .character-container { padding-left: 5%; }
 
-            /* 3. 對話框文字與按鈕放大 */
+            /* 3. 背景圖片優化：確保在手機上不會被放大到失真 */
+            #game-stage {
+                background-attachment: scroll; /* 避免手機端視差滾動造成的縮放問題 */
+                background-size: cover; /* 確保填滿但不變形 */
+            }
+
+            /* 4. 對話框文字與按鈕放大 */
             .dialogue-box {
-                height: 42vh; /* 增加高度容納大文字 */
-                padding: 35px 25px 20px 25px;
+                height: 38vh; /* 稍微縮小高度，讓背景多露出一點 */
+                padding: 30px 20px 15px 20px;
                 margin: 0 10px 10px 10px;
-                border-width: 3px;
             }
             .char-name {
-                font-size: 1.3rem; /* 角色名字大一點 */
-                top: -18px;
-                left: 25px;
+                font-size: 1.1rem;
+                top: -15px;
+                left: 20px;
             }
             .text-content {
-                font-size: 1.2rem; /* 對話內容變大方便閱讀 */
-                line-height: 1.5;
+                font-size: 1.15rem; /* 稍微調小一點，避免文字擠滿框框 */
+                line-height: 1.4;
             }
             .options {
-                margin-top: 20px;
-                gap: 10px;
+                margin-top: 15px;
+                gap: 8px;
             }
             .opt-btn {
-                font-size: 1.1rem; /* 選項按鈕變超大，好點擊 */
-                padding: 12px 22px;
-                width: 100%; /* 選項佔滿寬度，手指好按 */
+                font-size: 1rem;
+                padding: 10px 15px;
+                width: 100%; 
                 text-align: center;
             }
         }
-
         @keyframes breathe {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
