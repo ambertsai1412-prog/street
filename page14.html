@@ -105,10 +105,11 @@
 
             /* 3. 背景圖片優化：確保在手機上不會被放大到失真 */
 #game-stage {
-    background-size: contain; /* 完整顯示整張圖，不裁切 */
-    background-repeat: no-repeat;
-    background-color: #000; /* 空白處補黑色 */
-    background-position: center 20%; /* 讓圖稍微往上移，留空間給對話框 */
+        background-size: contain; /* 核心：不放大圖片，完整呈現 */
+        background-repeat: no-repeat;
+        background-position: center 15%; /* 讓圖片靠上方一點，留位置給下面的對話框 */
+        background-color: #1a1a1a; /* 圖片沒填滿的地方用黑色補 */
+    }
 }
 
             /* 4. 對話框文字與按鈕放大 */
