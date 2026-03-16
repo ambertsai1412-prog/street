@@ -15,12 +15,12 @@
         body, html { margin: 0; padding: 0; height: 100%; font-family: 'Noto Serif TC', serif; background: #000; overflow: hidden; }
 
         /* ==============================
-           🖼️ 背景核心設定：保證不裁切 + 拉伸填滿
+            🖼️ 背景核心設定 (電腦版)
            ============================== */
         #game-stage {
             width: 100vw; height: 100vh;
             position: relative;
-            /* 關鍵：100% 100% 強制圖片對齊螢幕邊緣，完全不裁切 */
+            /* 讓圖片強制拉伸填滿，保證不裁切內容 */
             background-size: 100% 100%; 
             background-repeat: no-repeat;
             background-position: center center;
@@ -31,7 +31,7 @@
 
         .past-filter { filter: sepia(0.5) contrast(1.1) brightness(0.8); }
 
-        /* UI 元件 - 電腦版 */
+        /* UI 元件 */
         .top-ui {
             position: absolute; top: 20px; width: 100%;
             display: flex; justify-content: space-between; padding: 0 30px; box-sizing: border-box;
@@ -57,7 +57,6 @@
             display: flex; align-items: center; justify-content: center; font-size: 20px;
         }
 
-        /* 主角視覺 - 電腦版 */
         .character-container {
             position: relative; width: 100%; display: flex;
             justify-content: flex-start; padding-left: 10%; pointer-events: none; z-index: 10; 
@@ -67,7 +66,6 @@
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); animation: breathe 4s infinite ease-in-out;
         }
 
-        /* 對話框 - 電腦版 */
         .dialogue-box {
             height: 28vh; background: var(--white-glass); margin: 0 20px 20px 20px;
             border-radius: 20px; padding: 25px 45px; box-sizing: border-box;
@@ -89,37 +87,35 @@
         #flash { position: fixed; top:0; left:0; width:100%; height:100%; background: white; opacity: 0; pointer-events: none; z-index: 1000; }
 
         /* ==============================
-           📱 手機版專屬修正 (不裁切背景 + 拉伸)
+           📱 手機版專屬修正
            ============================== */
-@media (max-width: 768px) {
-    #game-stage {
-        background-size: contain; /* 核心：不放大圖片，完整呈現 */
-        background-repeat: no-repeat;
-        background-position: center 15%; /* 讓圖片靠上方一點，留位置給下面的對話框 */
-        background-color: #1a1a1a; /* 圖片沒填滿的地方用黑色補 */
-    }
-            .top-ui { padding: 0 15px; top: 10px; flex-direction: column; align-items: flex-start; gap: 5px; }
-            .home-btn { font-size: 1.1rem; padding: 10px 18px; }
-            .status-badge { font-size: 1rem; padding: 8px 18px; }
-
-            #player-sprite {
-                width: 32vw; 
-                margin-bottom: -5vh; 
+        @media (max-width: 768px) {
+            #game-stage {
+                background-size: contain; 
+                background-position: center 15%; 
+                background-color: #000;
             }
+
+            .top-ui { padding: 0 15px; top: 10px; flex-direction: column; align-items: flex-start; gap: 5px; }
+            .home-btn { font-size: 0.85rem; padding: 6px 12px; }
+            .status-badge { font-size: 0.8rem; padding: 5px 12px; }
+
+            #player-sprite { width: 35vw; margin-bottom: -4vh; }
 
             .dialogue-box {
-                height: 40vh; 
-                padding: 35px 25px 20px 25px;
+                height: 38vh; 
+                padding: 30px 20px 15px 20px;
                 margin: 0 10px 10px 10px;
             }
-            .char-name { font-size: 1.3rem; top: -18px; left: 25px; }
-            .text-content { font-size: 1.25rem; line-height: 1.5; }
+            .char-name { font-size: 1rem; top: -15px; left: 20px; }
+            .text-content { font-size: 1.05rem; line-height: 1.4; }
             
+            .options { margin-top: 10px; gap: 8px; }
             .opt-btn {
-                font-size: 1.2rem;
-                padding: 15px;
-                width: 100%; 
-                text-align: center;
+                font-size: 0.9rem;
+                padding: 6px 14px;
+                width: auto; /* 按鈕縮小，不再佔滿寬度 */
+                min-width: 100px;
             }
         }
 
@@ -153,7 +149,6 @@
     </div>
 
 <script>
-    /* 腳本邏輯部分 (同前) */
     const state = { location: 'farmers_assoc', isPast: false, isTalking: false };
     const script = {
         'farmers_assoc': {
