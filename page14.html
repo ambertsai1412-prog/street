@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>拾陸：時光修復師 | 太平老街全紀實</title>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700&display=swap" rel="stylesheet">
     <style>
@@ -12,28 +12,26 @@
             --white-glass: rgba(255, 255, 255, 0.95);
         }
 
-        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Noto Serif TC', serif; background: #1a1a1a; overflow: hidden; }
+        body, html { margin: 0; padding: 0; height: 100%; font-family: 'Noto Serif TC', serif; background: #000; overflow: hidden; }
 
-#game-stage {
-    width: 100vw;
-    height: 100vh;
-    position: relative;
-    
-    /* --- 修改重點在這裡 --- */
-    background-size: 80%;      /* 數值越小，背景圖越小。例如 80% 或 1200px */
-    background-repeat: no-repeat;
-    background-position: center 20%; /* 讓縮小後的背景靠上方一點，免得被對話框擋住 */
-    background-color: #1a1a1a;  /* 縮小後露出的背景底色 */
-    /* ---------------------- */
+        /* ==============================
+           🖼️ 背景核心設定：保證不裁切 + 拉伸填滿
+           ============================== */
+        #game-stage {
+            width: 100vw; height: 100vh;
+            position: relative;
+            /* 關鍵：100% 100% 強制圖片對齊螢幕邊緣，完全不裁切 */
+            background-size: 100% 100%; 
+            background-repeat: no-repeat;
+            background-position: center center;
+            
+            transition: filter 1s ease, background-image 0.8s ease-in-out;
+            display: flex; flex-direction: column; justify-content: flex-end;
+        }
 
-    transition: filter 1s ease, background-image 0.8s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-        .past-filter { filter: sepia(0.4) contrast(1.1) brightness(0.9); }
+        .past-filter { filter: sepia(0.5) contrast(1.1) brightness(0.8); }
 
-        /* UI 元件 - 電腦版預設 */
+        /* UI 元件 - 電腦版 */
         .top-ui {
             position: absolute; top: 20px; width: 100%;
             display: flex; justify-content: space-between; padding: 0 30px; box-sizing: border-box;
@@ -51,6 +49,7 @@
             background: var(--white-glass); padding: 10px 20px; border-radius: 50px;
             font-weight: bold; color: var(--text-dark); box-shadow: 0 4px 15px rgba(0,0,0,0.3); backdrop-filter: blur(5px);
         }
+
         #inventory { display: flex; gap: 10px; }
         .item-slot {
             width: 50px; height: 50px; background: rgba(0,0,0,0.6);
@@ -58,116 +57,71 @@
             display: flex; align-items: center; justify-content: center; font-size: 20px;
         }
 
-        /* 主角視覺 - 電腦版預設 */
+        /* 主角視覺 - 電腦版 */
         .character-container {
             position: relative; width: 100%; display: flex;
-            justify-content: flex-start; padding-left: 8%; pointer-events: none; z-index: 10; 
+            justify-content: flex-start; padding-left: 10%; pointer-events: none; z-index: 10; 
         }
         #player-sprite {
-            width: 22vw; max-width: 320px; height: auto; margin-bottom: -25vh; 
-            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); animation: breathe 4s infinite ease-in-out; transform-origin: bottom center;
+            width: 18vw; max-width: 280px; height: auto; margin-bottom: -15vh; 
+            filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5)); animation: breathe 4s infinite ease-in-out;
         }
 
-/* 對話框 - 電腦版預設 (真正的矮化版) */
-.dialogue-box {
-    /* 1. 強制鎖定高度，120px 是很矮的寬度 */
-    height: 120px !important; 
-    
-    /* 2. 減少外距與內距 */
-    margin: 0 20px 15px 20px; 
-    padding: 10px 30px !important; 
-    
-    background: var(--white-glass); 
-    border-radius: 15px; 
-    box-sizing: border-box;
-    position: relative; 
-    border: 3px solid var(--vintage-gold); 
-    box-shadow: 0 -5px 25px rgba(0,0,0,0.4);
-    z-index: 50; 
-    backdrop-filter: blur(10px);
-}
+        /* 對話框 - 電腦版 */
+        .dialogue-box {
+            height: 28vh; background: var(--white-glass); margin: 0 20px 20px 20px;
+            border-radius: 20px; padding: 25px 45px; box-sizing: border-box;
+            position: relative; border: 4px solid var(--vintage-gold); box-shadow: 0 -10px 40px rgba(0,0,0,0.6);
+            z-index: 50; backdrop-filter: blur(10px);
+        }
+        .char-name {
+            position: absolute; top: -18px; left: 40px; background: var(--vintage-gold);
+            color: white; padding: 5px 25px; border-radius: 10px; font-weight: bold; font-size: 1.1rem;
+        }
+        .text-content { font-size: 1.2rem; color: var(--text-dark); line-height: 1.6; min-height: 3em; }
+        .options { margin-top: 15px; display: flex; gap: 12px; flex-wrap: wrap; }
+        .opt-btn {
+            padding: 8px 22px; border: 2px solid var(--vintage-gold); background: white;
+            border-radius: 50px; cursor: pointer; font-family: inherit; font-weight: bold;
+            font-size: 0.95rem; color: var(--text-dark); transition: 0.3s;
+        }
 
-.text-content { 
-    font-size: 1.1rem; 
-    color: var(--text-dark); 
-    line-height: 1.3; 
-    /* 3. 移除保底高度，避免撐開框框 */
-    min-height: 0 !important; 
-    margin-top: 5px;
-}
+        #flash { position: fixed; top:0; left:0; width:100%; height:100%; background: white; opacity: 0; pointer-events: none; z-index: 1000; }
 
-.options { 
-    /* 4. 縮短按鈕與文字的距離 */
-    margin-top: 8px !important; 
-    display: flex; 
-    gap: 10px; 
-}
-
-.char-name {
-    /* 5. 調整名字位置，不要離框框太遠 */
-    position: absolute; 
-    top: -12px; 
-    left: 30px; 
-    background: var(--vintage-gold);
-    color: white; 
-    padding: 2px 15px; 
-    font-size: 0.9rem;
-    border-radius: 8px;
-}
-}/* ==============================
-           📱 手機版強化優化 (RWD) - 平衡修正版
+        /* ==============================
+           📱 手機版專屬修正 (不裁切背景 + 拉伸)
            ============================== */
         @media (max-width: 768px) {
-            /* 1. UI 頂部大按鈕化 */
-            .top-ui { padding: 0 15px; top: 15px; flex-direction: column; align-items: flex-start; gap: 8px; }
-            .left-ui-group { flex-direction: row; gap: 8px; }
-            .home-btn { font-size: 1rem; padding: 8px 15px; }
-            .status-badge { font-size: 0.9rem; padding: 6px 15px; }
-            .item-slot { width: 40px; height: 40px; font-size: 1.2rem; }
-
-            /* 2. 主角大小修正：縮小到 45vw，避免太巨大 */
-            #player-sprite {
-                width: 35vw; 
-                max-width: 220px;
-                margin-bottom: -20vh; /* 調整高度，讓她自然地站立 */
+            #game-stage {
+                /* 手機版同樣維持 100% 100% 確保沒裁切 */
+                background-size: 100% 100%; 
             }
-            .character-container { padding-left: 5%; }
 
-            /* 3. 背景圖片優化：確保在手機上不會被放大到失真 */
-#game-stage {
-        background-size: contain; /* 核心：不放大圖片，完整呈現 */
-        background-repeat: no-repeat;
-        background-position: center 15%; /* 讓圖片靠上方一點，留位置給下面的對話框 */
-        background-color: #1a1a1a; /* 圖片沒填滿的地方用黑色補 */
-    }
-}
+            .top-ui { padding: 0 15px; top: 10px; flex-direction: column; align-items: flex-start; gap: 5px; }
+            .home-btn { font-size: 1.1rem; padding: 10px 18px; }
+            .status-badge { font-size: 1rem; padding: 8px 18px; }
 
-            /* 4. 對話框文字與按鈕放大 */
+            #player-sprite {
+                width: 32vw; 
+                margin-bottom: -5vh; 
+            }
+
             .dialogue-box {
-                height: 38vh; /* 稍微縮小高度，讓背景多露出一點 */
-                padding: 30px 20px 15px 20px;
+                height: 40vh; 
+                padding: 35px 25px 20px 25px;
                 margin: 0 10px 10px 10px;
             }
-            .char-name {
-                font-size: 1.1rem;
-                top: -15px;
-                left: 20px;
-            }
-            .text-content {
-                font-size: 1.10rem; /* 稍微調小一點，避免文字擠滿框框 */
-                line-height: 1.4;
-            }
-            .options {
-                margin-top: 15px;
-                gap: 8px;
-            }
+            .char-name { font-size: 1.3rem; top: -18px; left: 25px; }
+            .text-content { font-size: 1.25rem; line-height: 1.5; }
+            
             .opt-btn {
-                font-size: 1rem;
-                padding: 10px 15px;
+                font-size: 1.2rem;
+                padding: 15px;
                 width: 100%; 
                 text-align: center;
             }
         }
+
         @keyframes breathe {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-5px); }
@@ -198,92 +152,37 @@
     </div>
 
 <script>
-    /* 腳本邏輯部分完全保留妳原本的內容 */
+    /* 腳本邏輯部分 (同前) */
     const state = { location: 'farmers_assoc', isPast: false, isTalking: false };
     const script = {
         'farmers_assoc': {
-            modern: { 
-                bg: '4.jpg', 
-                text: "站在西市場門口的農會前。這棟純白色的建築雖然為了維持整潔感而粉刷，但右側加蓋的部分顯得並不對稱。白漆下似乎隱藏著原本的色彩...", 
-                speaker: "主角", 
-                opts: [{ text: "📷 穿梭到 1914 年看原貌", action: 'shutter' }, { text: "繼續往老街深處走", next: 'phantom_chen' }]
-            },
-            past: {
-                bg: 'past_farmers.jpg',
-                text: "回到了 1914 年。當時的『信用組合』竟然是優雅的淡綠色牆面，而且左右完全對稱。這種美感被後來的改建遮蓋了。",
-                speaker: "主角",
-                opts: [{ text: "📷 回到現代", action: 'shutter' }]
-            }
+            modern: { bg: '4.jpg', text: "站在西市場門口的農會前。這棟純白色的建築雖然為了維持整潔感而粉刷，但右側加蓋的部分顯得並不對稱。", speaker: "主角", opts: [{ text: "📷 穿梭到 1914 年", action: 'shutter' }, { text: "繼續前行", next: 'phantom_chen' }] },
+            past: { bg: 'past_farmers.jpg', text: "回到了 1914 年。當時的『信用組合』竟然是優雅的淡綠色牆面。", speaker: "主角", opts: [{ text: "📷 回到現代", action: 'shutter' }] }
         },
         'phantom_chen': {
-            modern: {
-                bg: '8.png',
-                text: "相機發出了共鳴。據說這裡曾有一座驚艷斗六的宅邸，但現代已經不復存在了。這就是妳要守護的消失記憶...",
-                speaker: "主角",
-                opts: [{ text: "📷 顯影：召喚 1920 年代的記憶", action: 'shutter' }]
-            },
-            past: {
-                bg: '2.jpg',
-                text: "出現了！這就是陳林氏寶宅。山牆上精緻的勳章飾與泥塑展現出強烈的巴洛克風情。陳林氏寶女士可是當時極具影響力的女企業家。",
-                speaker: "主角",
-                opts: [{ text: "觀察洗石子細節", next: 'chen_detail' }]
-            }
+            modern: { bg: '8.png', text: "據說這裡曾有一座驚艷斗六的宅邸。", speaker: "主角", opts: [{ text: "📷 召喚 1920 年代的記憶", action: 'shutter' }] },
+            past: { bg: '2.jpg', text: "出現了！這就是陳林氏寶宅。山牆展現出強烈的巴洛克風情。", speaker: "主角", opts: [{ text: "觀察細節", next: 'chen_detail' }] }
         },
         'chen_detail': {
-            past: {
-                bg: '2.jpg',
-                text: "這棟宅邸採用閩南式的『二進左右護龍』。這座融合了意志與財力的傑作，在時光中消失真的太可惜了。",
-                speaker: "主角",
-                opts: [{ text: "📷 帶著這份記憶回到現代", action: 'shutter' }]
-            }
+            past: { bg: '2.jpg', text: "這座融合了意志與財力的傑作，在時光中消失真的太可惜了。", speaker: "主角", opts: [{ text: "📷 回到現代", action: 'shutter' }] }
         },
         'street_walk': {
-            modern: {
-                bg: '3.jpg',
-                text: "沿著太平路走。這一段的山牆繁複，**深受巴洛克風格影響**；再往前走，風格轉向幾何圓形，**受裝飾藝術風格影響**。",
-                speaker: "主角",
-                opts: [{ text: "抵達劉仁德老宅", next: 'liu_house' }]
-            }
+            modern: { bg: '3.jpg', text: "沿著太平路走。這一段的山牆繁複，深受巴洛克風格影響。", speaker: "主角", opts: [{ text: "抵達劉仁德老宅", next: 'liu_house' }] }
         },
         'liu_house': {
-            modern: { 
-                bg: '10.jpg',
-                text: "抵達 1928 年建造的劉宅。灰色立面、酒瓶欄杆，線條簡潔，**深受現代主義影響**。小葉正站在門口等妳。", 
-                speaker: "主角", 
-                opts: [{ text: "與小葉交談", next: 'talk_yeh' }] 
-            }
+            modern: { bg: '10.jpg', text: "抵達 1928 年建造的劉宅。灰色立面、酒瓶欄杆，線條簡潔。", speaker: "主角", opts: [{ text: "與小葉交談", next: 'talk_yeh' }] }
         },
         'talk_yeh': {
-            modern: {
-                bg: '5.png',
-                text: "小葉：『妳來了。這座壯麗的大木結構，修復核心需要精確的支撐點數據。看來非得請教劉老先生不可了。』",
-                speaker: "小葉",
-                opts: [{ text: "📷 穿梭見劉老先生", action: 'shutter' }]
-            }
+            modern: { bg: '10.jpg', text: "小葉：『這座壯麗的大木結構，需要請教劉老先生。』", speaker: "小葉", opts: [{ text: "📷 穿梭見劉老先生", action: 'shutter' }] }
         },
         'past_liu': {
-            past: {
-                bg: 'liu_past.jpg',
-                text: "劉老先生：『孩子，這房子的重心藏在酒瓶裝飾正下方的暗榫。記住，不論時代怎麼變，根基要穩，家才不會散。』",
-                speaker: "劉老先生",
-                opts: [{ text: "記錄秘密並回到現代", action: 'finish_quest' }]
-            }
+            past: { bg: '10.jpg', text: "劉老先生：『孩子，根基要穩，家才不會散。』", speaker: "劉老先生", opts: [{ text: "記錄秘密並回到現代", action: 'finish_quest' }] }
         },
         'modern_finale': {
-            modern: {
-                bg: '5.png',
-                text: "六年修復，一磚一瓦都回到了正確的位置。現在這裡飄著咖啡香，小吟笑著遞上一杯咖啡。",
-                speaker: "主角",
-                opts: [{ text: "與小吟聊聊", next: 'talk_吟' }]
-            }
+            modern: { bg: '5.png', text: "修復完成。現在這裡飄著咖啡香，小吟笑著遞上一杯咖啡。", speaker: "主角", opts: [{ text: "與小吟聊聊", next: 'talk_吟' }] }
         },
         'talk_吟': {
-            modern: {
-                bg: '5.png',
-                text: "小吟：『謝謝妳跟小葉，讓阿祖的名字能隨著咖啡香，繼續留在太平老街。這是我們家最美的重生。』",
-                speaker: "小吟",
-                opts: [{ text: "完成修復之旅", action: 'end' }]
-            }
+            modern: { bg: '5.png', text: "小吟：『謝謝妳讓阿祖的名字能繼續留在太平老街。』", speaker: "小吟", opts: [{ text: "完成之旅", action: 'end' }] }
         }
     };
 
@@ -325,18 +224,15 @@
             const btn = document.createElement('button');
             btn.className = 'opt-btn'; btn.innerText = opt.text;
             btn.onclick = () => {
-                if (opt.action === 'shutter') { shutterEffect(); }
+                if (opt.action === 'shutter') shutterEffect();
                 else if (opt.action === 'finish_quest') {
                     document.getElementById('slot-item').innerText = '🏗️';
-                    alert("妳解開了劉宅大木結構的奧秘！");
                     state.location = 'modern_finale';
                     if (state.isPast) shutterEffect(); else render();
-                }
-                else if (opt.action === 'end') { 
+                } else if (opt.action === 'end') {
                     alert("遊戲結束：太平老街的記憶已被妳溫柔守護。");
-                    window.location.reload(); 
-                }
-                else { state.location = opt.next; render(); }
+                    window.location.reload();
+                } else { state.location = opt.next; render(); }
             };
             optContainer.appendChild(btn);
         });
