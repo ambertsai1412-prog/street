@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拾陸 - 導覽地圖</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sunset-milk: #D68F66;
+            --bg-paper: #F8F7F2;
+            --text-dark: #2C2928;
+            --border-light: #D1D1D1;
+        }
+
+        body { 
+            margin: 0; background-color: var(--bg-paper); 
+            font-family: 'Noto Serif TC', serif; color: var(--text-dark); 
+            height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+        }
+
+        /* --- 返回鍵 --- */
+        .back-nav { position: fixed; top: 25px; left: 25px; z-index: 2000; }
+        .back-link {
+            display: flex; align-items: center; text-decoration: none; color: var(--text-dark);
+            background: white; padding: 8px 18px; border-radius: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid var(--border-light); transition: 0.3s;
+        }
+        .back-link:hover { background-color: var(--sunset-milk); color: white; }
+
+        /* --- 標題區 --- */
+        .page-header { text-align: center; padding: 50px 20px 20px; }
+        .section-title {
+            display: inline-block; font-weight: 900; font-size: 1.5rem;
+            color: white; background-color: var(--sunset-milk); padding: 12px 35px; border-radius: 50px;
+        }
+
+        /* --- 主區域 --- */
+        .main-content {
+            display: flex; flex: 1; max-width: 1200px; margin: 0 auto 40px;
+            gap: 25px; padding: 0 20px; overflow: hidden; width: 100%; box-sizing: border-box;
+        }
+
+        /* 地圖包裝層 - 修正為 contain 確保完整 */
+        .map-wrapper {
+            flex: 1.2; background: #EEEAE6; border-radius: 20px; position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid var(--border-light); 
+            overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+        .map-img { 
+            width: 100%; height: 100%; 
+            object-fit: contain; /* 關鍵：確保地圖完整不被裁切 */
+            background-color: #EEEAE6; 
+        }
+
+        /* 地圖點位樣式 */
+        .pin {
+            position: absolute; width: 30px; height: 30px; background: var(--sunset-milk);
+            border: 2px solid white; border-radius: 50% 50% 50% 0; transform: rotate(-45deg);
+            cursor: pointer; transition: 0.3s; display: flex; align-items: center; justify-content: center;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+        .pin:hover { transform: rotate(-45deg) scale(1.2); background: #b36e47; }
+        
+        /* 這裡可以根據地圖位置手動調整點位 (需對應 map-img 的比例) */
+        #p1 { top: 40%; left: 30%; } 
+        #p2 { top: 55%; left: 45%; } 
+
+        /* --- 資訊卡片清單 --- */
+        .info-scroll { flex: 1.4; overflow-y: auto; padding-right: 12px; }
+        
+        .info-card {
+            background: white; border-radius: 18px; padding: 18px; margin-bottom: 15px;
+            border: 1px solid transparent; transition: 0.3s ease;
+            display: flex; align-items: flex-start; justify-content: space-between; gap: 15px;
+        }
+        .info-card.active { border-color: var(--sunset-milk); background-color: #FFFDF9; box-shadow: 0 8px 20px rgba(0,0,0,0.05); }
+
+        .card-text { flex: 1; }
+        .card-text h4 { margin: 0 0 6px 0; color: var(--sunset-milk); font-size: 1.15rem; font-weight: 900; }
+        .card-text p { margin: 0 0 10px 0; font-size: 14px; line-height: 1.5; color: #555; }
+
+        /* 右側縮圖 - 修正為 contain 確保圖片完整 */
+        .card-thumb {
+            width: 100px; height: 100px; 
+            background-color: #F0F0F0; border-radius: 10px;
+            overflow: hidden; flex-shrink: 0;
+            border: 1px solid var(--border-light);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .card-thumb img { 
+            max-width: 100%; max-height: 100%; 
+            width: auto; height: auto; 
+            object-fit: contain; /* 關鍵：縮圖完整不裁切 */
+        }
+
+        .gmap-link {
+            font-size: 12px; font-weight: 700; color: var(--sunset-milk);
+            text-decoration: none; border-bottom: 1px solid var(--sunset-milk);
+        }
+
+        @media (max-width: 768px) {
+            body { overflow-y: auto; height: auto; }
+            .main-content { flex-direction: column; }
+            .map-wrapper { height: 350px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="back-nav">
+        <a href="index.html" class="back-link">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="margin-right:8px;"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            <span class="back-text">返回首頁</span>
+        </a>
+    </nav>
+
+    <div class="page-header">
+        <div class="section-title">導覽地圖</div>
+    </div>
+
+    <div class="main-content">
+        <div class="map-wrapper">
+            <img src="17.png" class="map-img" alt="斗六導覽底圖">
+            </div>
+
+        <div class="info-scroll">
+            
+            <div class="info-card" id="card1">
+                <div class="card-text">
+                    <h4>雲林溪文化聚落</h4>
+                    <p>640 雲林縣斗六市雲中街 16 號。可以在雲林溪周圍步道找到相關地磚</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=雲林溪文化聚落" target="_blank" class="gmap-link">📍 在 Google 地圖查看</a>
+                </div>
+                <div class="card-thumb">
+                    <img src="16.jpg" alt="雲林溪文化聚落">
+                </div>
+            </div>
+
+            <div class="info-card" id="card5">
+                <div class="card-text">
+                    <h4>斗六涵碧樓壁畫</h4>
+                    <p>640 雲林縣斗六市雲林路一段 89 號。精緻彩繪重現陳林世寶宅。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=斗六涵碧樓壁畫" target="_blank" class="gmap-link">📍 在 Google 地圖查看</a>
+                </div>
+                </div>
+
+            <div class="info-card" id="card2">
+                <div class="card-text">
+                    <h4>農會鎮北分部</h4>
+                    <p>640 雲林縣斗六市雲林路一段 18 號。見證斗六農業與金融發展的節點。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=斗六市農會鎮北分部" target="_blank" class="gmap-link">📍 在 Google 地圖查看</a>
+                </div>
+            </div>
+
+            <div class="info-card" id="card3">
+                <div class="card-text">
+                    <h4>太平老街</h4>
+                    <p>雲林縣斗六市太平路。斗六最美的商業歷史街道。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=斗六太平老街" target="_blank" class="gmap-link">📍 在 Google 地圖查看</a>
+                </div>
+            </div>
+
+            <div class="info-card" id="card4">
+                <div class="card-text">
+                    <h4>仁德咖啡 Rende Café</h4>
+                    <p>640 雲林縣斗六市太平路 187 號。百年街屋結合咖啡香，老建築活化典範。</p>
+                    <a href="https://www.google.com/maps/search/?api=1&query=仁德咖啡" target="_blank" class="gmap-link">📍 在 Google 地圖查看</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function focusCard(id) {
+            document.querySelectorAll('.info-card').forEach(c => c.classList.remove('active'));
+            const card = document.getElementById('card' + id);
+            if(card) {
+                card.classList.add('active');
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    </script>
+</body>
+</html>
