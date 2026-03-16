@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拾陸 - 主題介紹：時光修補師的手札</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sunset-milk: #D68F66;
+            --bg-paper: #F8F7F2;
+            --text-dark: #2C2928;
+            --white-glass: rgba(255, 255, 255, 0.8);
+            --map-glow: #40E0D0;
+            --ink-blue: #2A4B7C;
+        }
+
+        body { 
+            margin: 0; 
+            background-color: var(--bg-paper); 
+            font-family: 'Noto Serif TC', serif; 
+            color: var(--text-dark); 
+            line-height: 1.8;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- 1. 返回按鈕 --- */
+        .back-btn {
+            position: fixed;
+            top: 25px;
+            left: 25px;
+            z-index: 1000;
+            background: var(--white-glass);
+            backdrop-filter: blur(10px);
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.3s;
+        }
+
+        .back-btn:hover {
+            background: var(--sunset-milk);
+            color: white;
+        }
+
+        /* --- 2. 標題與 Logo 區 (已移除額外顏色與濾鏡) --- */
+        .story-header {
+            padding: 220px 20px 80px; /* 維持下移的位置 */
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center; 
+        }
+
+        .header-logo {
+            margin-bottom: 50px;
+        }
+
+        .header-logo img {
+            height: 180px; /* 維持超大尺寸 */
+            width: auto;
+            /* 移除所有 drop-shadow 濾鏡與邊框，保持原圖色彩 */
+            border: none;
+            filter: none; 
+            display: block;
+        }
+
+        .story-subtitle {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.35rem;
+            color: var(--text-dark);
+            margin: 0;
+        }
+
+        .story-subtitle::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: var(--sunset-milk);
+            margin: 20px auto 0;
+        }
+
+        /* --- 3. 內容區塊 --- */
+        .notebook-container {
+            max-width: 900px; 
+            margin: 0 auto 100px;
+            padding: 80px 70px;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            box-shadow: 25px 25px 0px var(--sunset-milk); 
+            position: relative;
+        }
+
+        .notebook-container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 45px;
+            width: 2px; height: 100%;
+            background: rgba(214, 143, 102, 0.2);
+        }
+
+        .detective-note {
+            margin-bottom: 80px;
+            position: relative;
+            padding-left: 55px;
+        }
+
+        .detective-note h2 {
+            font-weight: 900;
+            font-size: 2rem;
+            color: var(--sunset-milk);
+            border-bottom: 4px dashed var(--sunset-milk);
+            display: inline-block;
+            margin-bottom: 35px;
+        }
+
+        .detective-note p {
+            font-size: 1.2rem;
+            text-align: justify;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .feature-box {
+            background: #fdfdfd;
+            padding: 35px;
+            border: 1px solid #eee;
+            border-radius: 18px;
+            transition: 0.4s;
+        }
+
+        .feature-box:hover {
+            border-color: var(--map-glow);
+            transform: translateY(-8px);
+        }
+
+        .feature-box h4 { 
+            margin: 0 0 15px; 
+            font-size: 1.3rem;
+            color: var(--ink-blue); 
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* --- 4. 底部 --- */
+        footer { 
+            text-align: center; 
+            padding: 60px; 
+            color: #999; 
+            font-size: 15px; 
+            border-top: 1px dashed #ccc;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .story-header { padding: 150px 20px 60px; }
+            .header-logo img { height: 130px; }
+            .notebook-container { margin: 20px; padding: 50px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">
+        <span>←</span> 返回首頁
+    </a>
+
+    <header class="story-header">
+        <div class="header-logo">
+            <img src="11.png" alt="拾陸 Logo"> 
+        </div>
+       
+        <p class="story-subtitle">—— 拾得古建築的風骨，閱讀斗六的靈魂。 ——</p>
+    </header>
+
+    <main class="notebook-container">
+        
+        <section class="detective-note">
+            <h2>01. 關於《拾陸》的由來</h2>
+            <p>
+              「拾」是拾起，是對老街磚瓦、建築歷史記憶的重新整理；「陸」是斗六，以中文國字陸去表現。 為了拾起斗六城市裡被忽略的建築故事、拾起時間留下的痕跡、拾起過去與現在之間的連結。
+        </p>
+        </section>
+
+        <section class="detective-note">
+            <h2>02. 設計理念</h2>
+            <p>
+            以童書與立體書形式重新詮釋斗六太平老街的建築故事，透過建築偵探的探索過程，引導讀者重新觀看日常街景，理解建築外觀、空間變遷與地方歷史之間的關係，拾起城市中被忽略的時間痕跡。
+          </p>
+
+            <div class="feature-grid">
+                <div class="feature-box">
+                    <h4><span>🔍</span> 觀察</h4>
+                    <p>利用輕量化的主線，帶領讀者發現被忽略的建築歷史。</p>
+                </div>
+                <div class="feature-box">
+                    <h4><span>🎨特色</span> </h4>
+                    <p>利用立體書與互動機關的方式，帶給讀者不一樣的體驗。</p>
+                </div>
+                <div class="feature-box">
+                    <h4><span>⚙️</span> 功能</h4>
+                    <p>了解建築的過去，年代的改變，建築的修復對比。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="detective-note">
+            <h2>03. 關於修補師</h2>
+            <p>
+              歷史不應該只是冰冷的資料，而是一個個鮮活的故事。透過《拾陸》，我們希望讓每位造訪太平老街的朋友，
+              都能擁有一份屬於自己的「虛擬手札」，親手參與這場跨越百年的時光修補工程。
+        </p>
+        </section>
+
+    </main>
+
+    <footer>
+      <p>Copyright © 2026 拾陸團隊版權所有</p>
+    </footer>
+
+</body>
+</html>
