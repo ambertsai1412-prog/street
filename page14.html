@@ -91,12 +91,13 @@
         /* ==============================
            📱 手機版專屬修正 (不裁切背景 + 拉伸)
            ============================== */
-        @media (max-width: 768px) {
-            #game-stage {
-                /* 手機版同樣維持 100% 100% 確保沒裁切 */
-                background-size: 100% 100%; 
-            }
-
+@media (max-width: 768px) {
+    #game-stage {
+        background-size: contain; /* 核心：不放大圖片，完整呈現 */
+        background-repeat: no-repeat;
+        background-position: center 15%; /* 讓圖片靠上方一點，留位置給下面的對話框 */
+        background-color: #1a1a1a; /* 圖片沒填滿的地方用黑色補 */
+    }
             .top-ui { padding: 0 15px; top: 10px; flex-direction: column; align-items: flex-start; gap: 5px; }
             .home-btn { font-size: 1.1rem; padding: 10px 18px; }
             .status-badge { font-size: 1rem; padding: 8px 18px; }
