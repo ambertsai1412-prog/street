@@ -99,6 +99,14 @@
             text-decoration: none; border-bottom: 1px solid var(--sunset-milk);
         }
 
+        /* 底部版權樣式 */
+        .footer-copyright {
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            color: #888;
+        }
+
         @media (max-width: 768px) {
             body { overflow-y: auto; height: auto; }
             .main-content { flex-direction: column; }
@@ -172,6 +180,10 @@
         </div>
     </div>
 
+    <div class="footer-copyright">
+        Copyright © 2026 拾陸團隊版權所有
+    </div>
+
     <script>
         function focusCard(id) {
             document.querySelectorAll('.info-card').forEach(c => c.classList.remove('active'));
@@ -182,5 +194,6 @@
             }
         }
     </script>
+	
 </body>
 </html>
