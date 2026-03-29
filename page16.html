@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>影片觀賞 - 拾陸</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* 定義主題顏色與字體 */
+        :root {
+            --sunset-milk: #D68F66;
+            --bg-paper: #F8F7F2;
+            --text-dark: #2C2928;
+            --border-light: #D1D1D1;
+        }
+
+        body { 
+            margin: 0; 
+            background-color: var(--bg-paper); 
+            font-family: 'Noto Serif TC', serif; 
+            color: var(--text-dark); 
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* --- 1. 頂部返回區塊 --- */
+        .header-bar {
+            padding: 20px 5%;
+            display: flex;
+            align-items: center;
+            background-color: var(--bg-paper);
+        }
+
+        .back-btn {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 16px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            padding: 10px 24px;
+            background: white;
+            border-radius: 50px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            transform: translateX(-5px);
+            color: var(--sunset-milk);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+
+        .back-btn::before {
+            content: '←';
+            margin-right: 8px;
+            font-size: 20px;
+        }
+
+        /* --- 2. 內容主要容器 --- */
+        .main-content {
+            flex: 1;
+            max-width: 1000px;
+            margin: 20px auto 60px;
+            padding: 0 20px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .page-intro {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-intro h1 {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--sunset-milk);
+            letter-spacing: 0.2rem;
+            margin-bottom: 10px;
+        }
+
+        .page-intro p {
+            color: #777;
+            font-size: 1.1rem;
+        }
+
+        /* --- 3. 影片播放視窗 (16:9 響應式) --- */
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 確保 16:9 比例 */
+            height: 0;
+            overflow: hidden;
+            border-radius: 15px;
+            background: #000;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* --- 4. 影片描述說明 --- */
+        .video-description {
+            margin-top: 40px;
+            background: white;
+            padding: 35px;
+            border-radius: 12px;
+            line-height: 1.8;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+        }
+
+        .video-description h2 {
+            margin-top: 0;
+            font-size: 1.4rem;
+            border-left: 4px solid var(--sunset-milk);
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #bbb;
+            font-size: 12px;
+        }
+
+        /* 手機版優化 */
+        @media (max-width: 600px) {
+            .page-intro h1 { font-size: 1.6rem; }
+            .video-description { padding: 25px; }
+            .header-bar { padding: 15px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-bar">
+        <a href="index.html" class="back-btn">返回主頁</a>
+    </header>
+
+    <main class="main-content">
+        <div class="page-intro">
+            <h1>影視．拾陸</h1>
+            <p>跨越時空的斗六建築導覽</p>
+        </div>
+
+        <div class="video-container">
+            <iframe 
+                src="https://www.youtube.com/embed/BEjcV5pZ0lA?rel=0&showinfo=0" 
+                title="拾陸影片導覽" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <article class="video-description">
+            <h2>關於這段導覽</h2>
+            <p>
+                「拾陸」團隊誠摯邀請您觀看這段精心製作的導覽影片。我們透過鏡頭紀錄了斗六最具代表性的歷史建築，包括太平老街迷人的巴洛克山牆、農會建築的實用美學，以及老街屋中流淌的時光痕跡。
+            </p>
+            <p>
+                本影片旨在讓觀看者在親臨現場前，能先從宏觀與微觀的角度，理解這些建築背後的文化內涵與美學價值。
+            </p>
+        </article>
+    </main>
+
+    <footer>
+        <p>Copyright © 2026 拾陸團隊版權所有</p>
+    </footer>
+
+</body>
+</html>
